@@ -66,21 +66,19 @@ router.get("/me", authenticateToken, (req, res) => {
 });
 
 router.get("/logout", async (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    path: "/",
-    domain: process.env.FRONTEND_URL,
-  });
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+    });
 
-  req.session.destroy(function (err) {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ message: "Error during logout" });
-    }
     res.status(200).json({ message: "Logged out successfully" });
-  });
+  } catch (err) {
+    console.error("Logout error:", err);
+    res.status(500).json({ message: "Error during logout" });
+  }
 });
 
 module.exports = router;
