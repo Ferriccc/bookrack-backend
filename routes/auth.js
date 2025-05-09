@@ -68,9 +68,10 @@ router.get("/me", authenticateToken, (req, res) => {
 router.get("/logout", (req, res) => {
   req.logout(function (err) {
     if (err) {
+      console.log(err);
       return next(err);
     }
-    res.redirect("/");
+    res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
   });
 
   // res.clearCookie("token", {
