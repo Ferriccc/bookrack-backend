@@ -66,12 +66,17 @@ router.get("/me", authenticateToken, (req, res) => {
 });
 
 router.get("/logout", async (req, res) => {
-  req.logout(function (err) {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
+  req.session.destroy(function (err) {
     if (err) {
       console.log(err);
-      return next(err);
+      return res.status(500).json({ message: "Error during logout" });
     }
-    res.redirect("http://localhost:5173");
+    res.status(200).json({ message: "Logged out successfully" });
   });
 });
 
