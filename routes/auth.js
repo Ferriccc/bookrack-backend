@@ -65,9 +65,9 @@ router.get("/me", authenticateToken, (req, res) => {
   });
 });
 
-router.get("/logout", async (req, res) => {
-  req.session.destroy();
+router.post("/logout", async (req, res) => {
   res.clearCookie("token");
+  req.session.destroy();
   return res.status(200).json({ message: "Logged out successfully" });
 });
 
