@@ -66,7 +66,11 @@ router.get("/me", authenticateToken, (req, res) => {
 });
 
 router.post("/logout", async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
   req.session.destroy();
   return res.status(200).json({ message: "Logged out successfully" });
 });
