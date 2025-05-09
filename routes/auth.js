@@ -65,7 +65,7 @@ router.get("/me", authenticateToken, (req, res) => {
   });
 });
 
-router.get("/logout", (req, res) => {
+router.get("/logout", async (req, res) => {
   req.logout(function (err) {
     if (err) {
       console.log(err);
@@ -73,16 +73,6 @@ router.get("/logout", (req, res) => {
     }
     res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
   });
-
-  // res.clearCookie("token", {
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: "none",
-  //   domain: process.env.COOKIE_DOMAIN || "localhost",
-  // });
-  // req.logout(() => {
-  //   res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
-  // });
 });
 
 module.exports = router;
