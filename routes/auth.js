@@ -71,7 +71,7 @@ router.get("/logout", async (req, res) => {
       console.log(err);
       return next(err);
     }
-    res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
+    res.redirect("http://localhost:5173");
   });
 });
 
