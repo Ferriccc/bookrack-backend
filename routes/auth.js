@@ -76,7 +76,7 @@ router.get("/logout", async (req, res) => {
       console.log(err);
       return res.status(500).json({ message: "Error during logout" });
     }
-    res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
+    res.status(200).json({ message: "Logged out successfully" });
   });
 });
 
