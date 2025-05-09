@@ -70,7 +70,10 @@ router.get("/logout", async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "none",
+    path: "/",
+    domain: process.env.FRONTEND_URL,
   });
+
   req.session.destroy(function (err) {
     if (err) {
       console.log(err);
