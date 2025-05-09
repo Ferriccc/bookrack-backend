@@ -18,7 +18,9 @@ const PORT = 3000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      callback(null, origin);
+    },
     credentials: true,
   })
 );
@@ -50,5 +52,5 @@ app.get("/api/protected", authenticateToken, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at port: ${PORT}`);
 });
