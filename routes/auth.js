@@ -49,7 +49,7 @@ router.get(
     res.cookie("token", token, {
       httpOnly: true,
       secure: true, // ➔ true in production
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 60 * 60 * 1000,
     });
 
