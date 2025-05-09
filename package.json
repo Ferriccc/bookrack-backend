@@ -7,9 +7,9 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
     "dev": "nodemon --watch . --exec node app.js",
-    "build": "node app.js"
+    "build": "echo nothing"
   },
   "dependencies": {
     "@google/genai": "^0.13.0",
