@@ -65,7 +65,7 @@ router.get("/me", authenticateToken, (req, res) => {
   });
 });
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logged out" });
   res.redirect(process.env.FRONTEND_URL || "http://localhost:5173");
