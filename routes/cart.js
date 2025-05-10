@@ -7,7 +7,7 @@ const index = pc.index("booksy");
 const { authenticateToken } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-router.get("/add/wishlist/:book_id", authenticateToken, async (req, res) => {
+router.get("/add/cart/:book_id", authenticateToken, async (req, res) => {
   const user_email = req.user.emails[0].value;
   const book_id = req.params.book_id;
 
@@ -34,9 +34,9 @@ router.get("/add/wishlist/:book_id", authenticateToken, async (req, res) => {
       ? user_response.records[`${user_email}#${book_id}`].metadata
       : null;
 
-    const isCarted = exsistingRecord ? exsistingRecord.isCarted : false;
     const isPurchased = exsistingRecord ? exsistingRecord.isPurchased : false;
-    const isWishlisted = true;
+    const isWishlisted = exsistingRecord ? exsistingRecord.isWishlisted : false;
+    const isCarted = true;
 
     const result = await index.namespace("users").upsertRecords([
       {
@@ -64,7 +64,7 @@ router.get("/add/wishlist/:book_id", authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/remove/wishlist/:book_id", authenticateToken, async (req, res) => {
+router.get("/remove/cart/:book_id", authenticateToken, async (req, res) => {
   const user_email = req.user.emails[0].value;
   const book_id = req.params.book_id;
 
@@ -91,9 +91,9 @@ router.get("/remove/wishlist/:book_id", authenticateToken, async (req, res) => {
       ? user_response.records[`${user_email}#${book_id}`].metadata
       : null;
 
-    const isCarted = exsistingRecord ? exsistingRecord.isCarted : false;
     const isPurchased = exsistingRecord ? exsistingRecord.isPurchased : false;
-    const isWishlisted = false;
+    const isWishlisted = exsistingRecord ? exsistingRecord.isWishlisted : false;
+    const isCarted = false;
 
     const result = await index.namespace("users").upsertRecords([
       {

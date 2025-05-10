@@ -9,7 +9,7 @@ const authRoutes = require("./routes/auth");
 const searchRoutes = require("./routes/search");
 const fetchRoutes = require("./routes/fetch");
 const wishlistRoutes = require("./routes/wishlist");
-const boughtRoutes = require("./routes/bought");
+const cartRoutes = require("./routes/cart");
 const suggestRoutes = require("./routes/suggest");
 const chatRoutes = require("./routes/chat");
 
@@ -41,7 +41,7 @@ app.use("/api", authRoutes);
 app.use("/api", searchRoutes);
 app.use("/api", fetchRoutes);
 app.use("/api", wishlistRoutes);
-app.use("/api", boughtRoutes);
+app.use("/api", cartRoutes);
 app.use("/api", suggestRoutes);
 app.use("/api", chatRoutes);
 
