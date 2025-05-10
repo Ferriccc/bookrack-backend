@@ -74,14 +74,11 @@ router.get("/fetch/book/:book_id", async (req, res) => {
     return res.status(400).json({ message: "Book ID is required" });
   }
 
+  console.log(book_id);
+
   try {
-    const response = await index.namespace("books").query({
-      id: book_id,
-      includeMetadata: true,
-      includeValues: false,
-      topK: 1,
-    });
-    const result = response.matches[0].metadata;
+    const response = await index.namespace("books").fetch([book_id]);
+    const result = response.records[book_id].metadata;
 
     if (result) {
       result.id = book_id;

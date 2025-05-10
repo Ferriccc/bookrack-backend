@@ -18,27 +18,20 @@ router.get("/add/wishlist/:book_id", authenticateToken, async (req, res) => {
   }
 
   try {
-    const book_response = await index.namespace("books").query({
-      id: book_id,
-      topK: 1,
-      includeMetadata: true,
-      includeValues: false,
-    });
+    const book_response = await index.namespace("books").fetch([book_id]);
 
-    if (!book_response.matches.length) {
+    if (!book_response.records.length) {
       return res.status(404).json({ message: "Book not found" });
     }
-    const book_details = book_response.matches[0].metadata;
 
-    const user_response = await index.namespace("users").query({
-      id: `${user_email}#${book_id}`,
-      topK: 1,
-      includeMetadata: true,
-      includeValues: false,
-    });
+    const book_details = book_response.records[book_id].metadata;
 
-    const exsistingRecord = user_response.matches.length
-      ? user_response.matches[0].metadata
+    const user_response = await index
+      .namespace("users")
+      .fetch([`${user_email}#${book_id}`]);
+
+    const exsistingRecord = user_response.records[`${user_email}#${book_id}`]
+      ? user_response.records[`${user_email}#${book_id}`].metadata
       : null;
 
     const isCarted = exsistingRecord ? exsistingRecord.isCarted : false;
@@ -82,27 +75,20 @@ router.get("/remove/wishlist/:book_id", authenticateToken, async (req, res) => {
   }
 
   try {
-    const book_response = await index.namespace("books").query({
-      id: book_id,
-      topK: 1,
-      includeMetadata: true,
-      includeValues: false,
-    });
+    const book_response = await index.namespace("books").fetch([book_id]);
 
-    if (!book_response.matches.length) {
+    if (!book_response.records.length) {
       return res.status(404).json({ message: "Book not found" });
     }
-    const book_details = book_response.matches[0].metadata;
 
-    const user_response = await index.namespace("users").query({
-      id: `${user_email}#${book_id}`,
-      topK: 1,
-      includeMetadata: true,
-      includeValues: false,
-    });
+    const book_details = book_response.records[book_id].metadata;
 
-    const exsistingRecord = user_response.matches.length
-      ? user_response.matches[0].metadata
+    const user_response = await index
+      .namespace("users")
+      .fetch([`${user_email}#${book_id}`]);
+
+    const exsistingRecord = user_response.records[`${user_email}#${book_id}`]
+      ? user_response.records[`${user_email}#${book_id}`].metadata
       : null;
 
     const isCarted = exsistingRecord ? exsistingRecord.isCarted : false;
