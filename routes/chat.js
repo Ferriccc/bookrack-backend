@@ -23,6 +23,7 @@ router.get(
     let user_context = {
       wishlist: null,
       bought: null,
+      cart: null,
     };
     try {
       const response = await index.namespace("users").searchRecords({
@@ -58,6 +59,25 @@ router.get(
 
       if (result) {
         user_context.bought = result;
+      }
+    } catch (error) {
+      console.log("Error fetching user context: ", error);
+    }
+    try {
+      const response = await index.namespace("users").searchRecords({
+        query: {
+          inputs: { text: user_email },
+          topK: 1e4,
+          filter: {
+            user_email: user_email,
+            isCarted: true,
+          },
+        },
+      });
+      const result = response.result.hits.map((hit) => hit.fields);
+
+      if (result) {
+        user_context.cart = result;
       }
     } catch (error) {
       console.log("Error fetching user context: ", error);
