@@ -20,7 +20,7 @@ router.get("/add/bought/:book_id", authenticateToken, async (req, res) => {
   try {
     const book_response = await index.namespace("books").fetch([book_id]);
 
-    if (!book_response.records.length) {
+    if (!book_response.records[book_id]) {
       return res.status(404).json({ message: "Book not found" });
     }
     const book_details = book_response.records[book_id].metadata;

@@ -20,7 +20,7 @@ router.get("/add/wishlist/:book_id", authenticateToken, async (req, res) => {
   try {
     const book_response = await index.namespace("books").fetch([book_id]);
 
-    if (!book_response.records.length) {
+    if (!book_response.records[book_id]) {
       return res.status(404).json({ message: "Book not found" });
     }
 
@@ -77,7 +77,7 @@ router.get("/remove/wishlist/:book_id", authenticateToken, async (req, res) => {
   try {
     const book_response = await index.namespace("books").fetch([book_id]);
 
-    if (!book_response.records.length) {
+    if (!book_response.records[book_id]) {
       return res.status(404).json({ message: "Book not found" });
     }
 
@@ -93,7 +93,7 @@ router.get("/remove/wishlist/:book_id", authenticateToken, async (req, res) => {
 
     const isCarted = exsistingRecord ? exsistingRecord.isCarted : false;
     const isPurchased = exsistingRecord ? exsistingRecord.isPurchased : false;
-    const isWishlisted = false;
+    const isWishlisted = true;
 
     const result = await index.namespace("users").upsertRecords([
       {

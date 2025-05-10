@@ -63,8 +63,6 @@ router.get(
       console.log("Error fetching user context: ", error);
     }
 
-    console.log(user_context);
-
     let book_context = null;
     if (book_id) {
       try {
