@@ -12,6 +12,7 @@ const wishlistRoutes = require("./routes/wishlist");
 const cartRoutes = require("./routes/cart");
 const suggestRoutes = require("./routes/suggest");
 const chatRoutes = require("./routes/chat");
+const checkoutRoutes = require("./routes/checkout");
 
 const app = express();
 const PORT = 3000;
@@ -44,6 +45,7 @@ app.use("/api", wishlistRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", suggestRoutes);
 app.use("/api", chatRoutes);
+app.use("/api", checkoutRoutes);
 
 // A protected route
 const { authenticateToken } = require("./middlewares/authMiddleware");

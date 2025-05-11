@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@google/genai": "^0.13.0",
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@pinecone-database/pinecone": "^5.1.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
